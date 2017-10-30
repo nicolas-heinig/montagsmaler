@@ -2,7 +2,11 @@
   h1 = t(:words)
 
 .row
-  .col-sm-12
+  .col-sm-6
+    = link_to 'Prev Page', path_to_prev_page(@words), class: 'btn btn-primary', disabled: ['1', nil].include?(params[:page])
+    = link_to 'Next Page', path_to_next_page(@words), class: 'btn btn-primary pull-right'
+
+  .col-sm-6
     = link_to new_word_path, style: 'margin-bottom: 10px;', class: 'btn btn-primary pull-right btn-block visible-xs' do
       = fa_icon 'plus', text: t(:new_word)
 

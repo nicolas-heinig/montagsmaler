@@ -3,7 +3,7 @@ class WordsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @words = Word.preload(:user).all
+    @words = Word.preload(:user).all.page params[:page]
   end
 
   def show

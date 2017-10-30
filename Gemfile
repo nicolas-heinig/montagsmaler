@@ -17,6 +17,7 @@ gem 'font-awesome-rails'
 
 gem 'devise'
 gem 'kramdown'
+gem 'kaminari'
 
 group :development, :test do
   gem 'pry-byebug'
