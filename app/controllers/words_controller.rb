@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :set_model, only: [:destroy, :update, :show, :edit]
-  before_action :authorize_admin
+  before_action :authenticate_user!  
 
   def index
     @words = Word.preload(:user).all.page params[:page]
