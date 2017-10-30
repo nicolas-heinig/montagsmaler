@@ -3,7 +3,7 @@ class WordsController < ApplicationController
   before_action :authenticate_user!  
 
   def index
-    @words = Word.preload(:user).all.page params[:page]
+    @words = Word.preload(:user).all.order(created_at: :desc).page params[:page]
   end
 
   def show
