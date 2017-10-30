@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    container_name: database
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: montagsmaler
+
+  montagsmaler:
+    container_name: montagsmaler
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - selenium
+    environment:
+      BLACKSHIRTS_DATABASE: montagsmaler
+      BLACKSHIRTS_HOST: db
+      BLACKSHIRTS_PASSWORD: montagsmaler
+      SELENIUM_REMOTE_HOST: selenium
+
+  selenium:
+    image: selenium/standalone-chrome
+    container_name: selenium

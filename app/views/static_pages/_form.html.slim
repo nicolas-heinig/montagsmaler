@@ -1,0 +1,28 @@
+.btn-group.pull-right
+
+= simple_form_for @static_page do |f|
+  .row
+    .col-lg-4
+      = f.input :slug
+    .col-lg-4
+      = f.input :markup_type,
+                as: :select,
+                label: t(:markup_type),
+                collection: StaticPage.markup_types,
+                include_blank: false
+    .col-lg-4
+      br
+      .pull-right
+        = f.submit t(:save), class: 'btn btn-success'
+
+  br
+
+  .row
+    .col-lg-6
+      = f.input :content,
+                class: 'form-control',
+                label: t(:content),
+                input_html: { rows: 10, style: 'resize: vertical' }
+
+    label = t(:preview)
+    #preview.col-lg-6

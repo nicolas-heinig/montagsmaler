@@ -1,0 +1,9 @@
+h2 = t(:login)
+
+= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  div.col-lg-3
+    = f.input :login, required: false, autofocus: true, label: t(:login_data)
+    = f.input :password, required: false, label: t(:password)
+    = f.input :remember_me, as: :boolean, label: t(:remember_me) if devise_mapping.rememberable?
+
+    = f.button :submit, 'Log in'

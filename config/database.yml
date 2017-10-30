@@ -1,0 +1,19 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  database: <%= ENV['BLACKSHIRTS_DATABASE'] %>
+  username: <%= ENV['BLACKSHIRTS_USERNAME'] %>
+  password: <%= ENV['BLACKSHIRTS_PASSWORD'] %>
+  host: <%= ENV['BLACKSHIRTS_HOST'] %>
+  socket: <%= ENV['BLACKSHIRTS_SOCKET'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  database: <%= ENV['BLACKSHIRTS_DATABASE'].try(:+, '_test') %>
+
+production:
+  <<: *default

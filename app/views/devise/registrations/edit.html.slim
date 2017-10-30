@@ -1,0 +1,27 @@
+h2 = t(:settings)
+
+= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+  = f.error_notification
+
+  .col-lg-4
+    = f.input :username, required: true
+    = f.input :email, required: true
+    = f.input :language,
+              label: t(:language),
+              required: true,
+              as: :select,
+              collection: I18n.available_locales
+
+    br
+
+    = f.button :submit, t(:save), class: 'btn btn-success hidden-xs'
+
+  .col-lg-4
+    = f.input :password, autocomplete: 'off', required: true, label: t(:password)
+    = f.input :password_confirmation, required: true, label: t(:password_confirmation)
+    = f.input :current_password, required: true, label: t(:current_password)
+
+  .col-lg-4.visible-xs
+    br
+
+    = f.button :submit, t(:save), class: 'btn btn-success col-xs-12'

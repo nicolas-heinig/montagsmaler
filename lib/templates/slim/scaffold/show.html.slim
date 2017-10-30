@@ -1,0 +1,15 @@
+.page-header
+  h1 = t(:show_<%= singular_table_name %>)
+
+  .btn-group.pull-right
+    = link_to edit_<%= singular_table_name %>_path(@<%= singular_table_name %>), class: 'btn btn-primary' do
+      = fa_icon 'pencil', text: t(:edit)
+
+    = link_to <%= index_helper %>_path, class: 'btn btn-default' do
+      = fa_icon 'list', text: t(:back)
+
+dl.dl-horizontal
+<%- for attribute in attributes -%>
+  dt = t(:<%= attribute.name %>)
+  dd = @<%= singular_table_name %>.<%= attribute.name %>
+<%- end -%>

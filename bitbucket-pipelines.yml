@@ -1,0 +1,34 @@
+# This is a sample build configuration for Ruby.
+# Check our guides at https://confluence.atlassian.com/x/8r-5Mw for more examples.
+# Only use spaces to indent your .yml configuration.
+# -----
+# You can specify a custom docker image from Docker Hub as your build environment.
+image: ruby:2.4.0
+
+pipelines:
+  default:
+    - step:
+        caches:
+          - bundler
+        script:
+          # manage envs in Settings > Pipelines > Environment variables.
+          - apt-get update -qq && apt-get install -y build-essential nodejs
+          - bundle install
+          - ./script/run_tests.sh
+        services:
+          - mysql
+          - selenium
+
+definitions:
+  caches:
+    bundler: vendor/bundle
+
+  services:
+    mysql:
+      image: mysql
+      environment:
+        MYSQL_DATABASE: 'montagsmaler'
+        MYSQL_ROOT_PASSWORD: 'montagsmaler'
+
+    selenium:
+      image: selenium/standalone-chrome

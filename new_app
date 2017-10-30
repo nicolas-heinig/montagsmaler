@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ -n "$1" ]; then
+  APPNAME=$1
+  APP_PATH=../$APPNAME
+
+  mkdir $APP_PATH
+
+  rsync -av --progress . $APP_PATH --exclude .git --exclude tmp
+
+  PATHS_TO_EDIT=$(grep -Ril -e 'montagsmaler' \
+                  --exclude=.git/* \
+                  --exclude *.cache \
+                  --exclude Gemfile  \
+                  --exclude tmp/* \
+                  --exclude */javascripts/** \
+                  $APP_PATH)
+
+  APPNAME_CAPT="$(echo "$APPNAME" | gsed 's/.*/\u&/')"
+  APPNAME_CAPS="$(echo "$APPNAME" | gsed 's/./\u&/g')"
+
+  gsed -i "s/montagsmaler/$APPNAME/g" $PATHS_TO_EDIT
+  gsed -i "s/Montagsmaler/$APPNAME_CAPT/g" $PATHS_TO_EDIT
+  gsed -i "s/MONTAGSMALER/$APPNAME_CAPS/g" $PATHS_TO_EDIT
+
+  echo "CREATED $APP_PATH"
+
+  cd $APP_PATH
+
+  git init
+else
+  echo 'APPNAME MISSING!'
+fi

@@ -1,0 +1,42 @@
+h2 = t(:user_management)
+
+.col-sm-12
+  = link_to t(:new_user), new_user_path, class: 'btn btn-primary pull-right btn-block visible-xs'
+  = link_to t(:new_user), new_user_path, class: 'btn btn-primary pull-right hidden-xs'
+
+.col-sm-12
+  .table-responsive
+    table.table
+      thead
+        th = t(:username)
+        th = t(:email)
+        th = t(:role)
+        th.hidden-xs
+        th.hidden-xs
+
+      tbody
+        - @users.each do |user|
+          tr
+            td = user.username
+            td = user.email
+            td = user.role
+
+            td.hidden-sm.hidden-xs = link_to edit_user_path(user)
+              = fa_icon 'pencil', text: t(:edit)
+
+            td.hidden-sm.hidden-xs = link_to user_path(user), method: :delete, 'data-confirm' => t(:are_you_sure)
+              = fa_icon 'trash', text: t(:delete)
+
+            td.visible-sm.visible-xs
+              = fa_icon 'pencil', onclick: "$('#optionModal#{user.id}').modal();", style: 'color: #337ab7'
+
+              .modal.modal-vertical-centered.fade aria-labelledby='modal' role='dialog' tabindex='-1' id='optionModal#{user.id}'
+                .modal-dialog.modal-vertical-centered role='document'
+                  .modal-content
+                    .modal-body
+                      p
+                        = button_to edit_user_path(user), class: 'btn btn-block btn-primary', method: :get
+                          = fa_icon 'pencil', text: t(:edit)
+                      p
+                        = button_to user, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-block btn-danger'
+                          = fa_icon 'trash', text: t(:delete)

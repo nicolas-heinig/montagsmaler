@@ -1,0 +1,13 @@
+- if notice
+  p.alert.alert-success
+    = fa_icon 'check-circle', text: notice
+
+    a.close href='#' data-dismiss='alert' aria-label='close'
+      | ×
+
+- if alert
+  p.alert.alert-danger
+    = fa_icon 'exclamation-circle', text: alert
+
+    a.close href='#' data-dismiss='alert' aria-label='close'
+      | ×

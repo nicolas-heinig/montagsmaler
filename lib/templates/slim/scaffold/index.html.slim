@@ -1,0 +1,58 @@
+.page-header
+  h1 = t(:<%= plural_table_name %>)
+
+.row
+  .col-sm-12
+    = link_to new_<%= singular_table_name %>_path, style: 'margin-bottom: 10px;', class: 'btn btn-primary pull-right btn-block visible-xs' do
+      = fa_icon 'plus', text: t(:new_<%= singular_table_name %>)
+
+    = link_to new_<%= singular_table_name %>_path, class: 'btn btn-primary pull-right hidden-xs' do
+      = fa_icon 'plus', text: t(:new_<%= singular_table_name %>)
+
+.row
+  .col-sm-12
+    .table-responsive
+      table.table.table-striped.table-hover
+        thead
+          tr
+  <%- for attribute in attributes -%>
+            th = t(:<%= attribute.name %>)
+  <%- end -%>
+            th
+            th.hidden-sm.hidden-xs
+            th.hidden-sm.hidden-xs
+        tbody
+          - @<%= plural_table_name %>.each do | <%= singular_table_name %> |
+            tr
+  <%- for attribute in attributes -%>
+              td
+                = <%= singular_table_name %>.<%= attribute.name %>
+  <%- end -%>
+              td.hidden-sm.hidden-xs
+                = link_to <%= singular_table_name %>
+                  = fa_icon 'eye', text: t(:show)
+
+              td.hidden-sm.hidden-xs
+                = link_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>)
+                  = fa_icon 'pencil', text: t(:edit)
+
+              td.hidden-sm.hidden-xs
+                = link_to <%= singular_table_name %>, method: :delete, data: { confirm: t(:are_you_sure) }
+                  = fa_icon 'trash', text: t(:delete)
+
+              td.visible-sm.visible-xs
+                = fa_icon 'pencil', onclick: "$('#optionModal#{<%= singular_table_name %>.id}').modal();", style: 'color: #337ab7'
+
+                .modal.modal-vertical-centered.fade aria-labelledby='modal' role='dialog' tabindex='-1' id='optionModal#{<%= singular_table_name %>.id}'
+                  .modal-dialog.modal-vertical-centered role='document'
+                    .modal-content
+                      .modal-body
+                        p
+                          = button_to <%= singular_table_name %>, method: :get, class: 'btn btn-block btn-primary'
+                            = fa_icon 'eye', text: t(:show)
+                        p
+                          = button_to edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-block btn-primary', method: :get
+                            = fa_icon 'pencil', text: t(:edit)
+                        p
+                          = button_to <%= singular_table_name %>, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-block btn-danger'
+                            = fa_icon 'trash', text: t(:delete)

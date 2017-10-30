@@ -1,0 +1,16 @@
+= simple_form_for @user, url: @user.new_record? ? users_path : user_path, method: @user.new_record? ? :post : :put do |f|
+  .col-lg-4
+    = f.input :username
+    = f.input :email
+    = f.input :language,
+              label: t(:language),
+              required: true,
+              as: :select,
+              collection: I18n.available_locales
+
+    = f.input :role, collection: User.roles, label: t(:role), selected: 'member'
+
+    - if @user.new_record?
+      = f.input :password, label: t(:password)
+
+    = f.submit t(:save), class: 'btn btn-success'

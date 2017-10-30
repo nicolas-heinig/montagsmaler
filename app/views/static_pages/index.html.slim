@@ -1,0 +1,47 @@
+.page-header
+  h1 = t(:static_pages)
+
+.col-sm-12
+  = link_to new_static_page_path, class: 'btn btn-primary pull-right btn-block visible-xs' do
+    = fa_icon 'plus', text: t(:new_static_page)
+  = link_to new_static_page_path, class: 'btn btn-primary pull-right hidden-xs' do
+    = fa_icon 'plus', text: t(:new_static_page)
+
+/.table-responsive <-- use only this if you want your table responsive
+/ however dropdowns wont work correctly anymore then
+.col-sm-12
+  .table-responsive
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th = t(:slug)
+          th = t(:markup_type)
+          th
+          th.hidden-sm.hidden-xs
+      tbody
+        - @static_pages.each do | static_page |
+          tr
+            td
+              = static_page.slug
+            td
+              = static_page.markup_type
+            td.hidden-sm.hidden-xs
+              = link_to edit_static_page_path(static_page)
+                = fa_icon 'pencil', text: t(:edit)
+            td.hidden-sm.hidden-xs
+              = link_to static_page, method: :delete, data: { confirm: t(:are_you_sure) }
+                = fa_icon 'trash', text: t(:delete)
+
+            td.visible-sm.visible-xs
+              = fa_icon 'pencil', onclick: "$('#optionModal#{static_page.id}').modal();", style: 'color: #337ab7'
+
+              .modal.modal-vertical-centered.fade aria-labelledby='modal' role='dialog' tabindex='-1' id='optionModal#{static_page.id}'
+                .modal-dialog.modal-vertical-centered role='document'
+                  .modal-content
+                    .modal-body
+                      p
+                        = button_to edit_static_page_path(static_page), class: 'btn btn-block btn-primary', method: :get
+                          = fa_icon 'pencil', text: t(:edit)
+                      p
+                        = button_to static_page, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-block btn-danger'
+                          = fa_icon 'trash', text: t(:delete)
