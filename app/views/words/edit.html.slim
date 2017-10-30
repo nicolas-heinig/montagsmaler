@@ -1,0 +1,11 @@
+.page-header
+  h1 = t(:edit_word)
+
+  .btn-group.pull-right
+    = link_to @word, class: 'btn btn-primary' do
+      = fa_icon 'info-circle', text: t(:show)
+
+    = link_to words_path, class: 'btn btn-default' do
+      = fa_icon 'list', text: t(:back)
+
+= render 'form'

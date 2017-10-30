@@ -12,6 +12,8 @@ class User < ApplicationRecord
     format: { with: /^[a-zA-Z0-9_\.]*$/, multiline: true }
   )
 
+  has_many :words
+
   # Attr and method for login with username or email
   attr_accessor :login
 

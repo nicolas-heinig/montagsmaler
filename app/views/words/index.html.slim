@@ -1,0 +1,57 @@
+.page-header
+  h1 = t(:words)
+
+.row
+  .col-sm-12
+    = link_to new_word_path, style: 'margin-bottom: 10px;', class: 'btn btn-primary pull-right btn-block visible-xs' do
+      = fa_icon 'plus', text: t(:new_word)
+
+    = link_to new_word_path, class: 'btn btn-primary pull-right hidden-xs' do
+      = fa_icon 'plus', text: t(:new_word)
+
+.row
+  .col-sm-12
+    .table-responsive
+      table.table.table-striped.table-hover
+        thead
+          tr
+            th = t(:text)
+            th = t(:creator)
+            th
+            th.hidden-sm.hidden-xs
+            th.hidden-sm.hidden-xs
+        tbody
+          - @words.each do | word |
+            tr
+              td
+                = word.text
+              td
+                = word.user.username
+              td.hidden-sm.hidden-xs
+                = link_to word
+                  = fa_icon 'eye', text: t(:show)
+
+              td.hidden-sm.hidden-xs
+                = link_to edit_word_path(word)
+                  = fa_icon 'pencil', text: t(:edit)
+
+              td.hidden-sm.hidden-xs
+                = link_to word, method: :delete, data: { confirm: t(:are_you_sure) }
+                  = fa_icon 'trash', text: t(:delete)
+
+              td.visible-sm.visible-xs
+                = fa_icon 'pencil', onclick: "$('#optionModal#{word.id}').modal();", style: 'color: #337ab7'
+
+                .modal.modal-vertical-centered.fade aria-labelledby='modal' role='dialog' tabindex='-1' id='optionModal#{word.id}'
+                  .modal-dialog.modal-vertical-centered role='document'
+                    .modal-content
+                      .modal-body
+                        p
+                          = button_to word, method: :get, class: 'btn btn-block btn-primary'
+                            = fa_icon 'eye', text: t(:show)
+                        p
+                          = button_to edit_word_path(word), class: 'btn btn-block btn-primary', method: :get
+                            = fa_icon 'pencil', text: t(:edit)
+                        p
+                          = button_to word, method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-block btn-danger'
+                            = fa_icon 'trash', text: t(:delete)

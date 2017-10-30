@@ -1,5 +1,6 @@
 class StartpageController < ApplicationController
   def index
+    @word = Word.all.sample
   end
 
   def role_switch

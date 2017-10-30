@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :words
   devise_for :users, controllers: { registrations: 'users/registrations' }
 
   root 'startpage#index'

@@ -1,0 +1,15 @@
+.page-header
+  h1 = t(:show_word)
+
+  .btn-group.pull-right
+    = link_to edit_word_path(@word), class: 'btn btn-primary' do
+      = fa_icon 'pencil', text: t(:edit)
+
+    = link_to words_path, class: 'btn btn-default' do
+      = fa_icon 'list', text: t(:back)
+
+dl.dl-horizontal
+  dt = t(:text)
+  dd = @word.text
+  dt = t(:creator)
+  dd = @word.user.username
