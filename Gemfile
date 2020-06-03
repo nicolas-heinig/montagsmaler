@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2.4.3'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 gem 'thin'
 gem 'dotenv-rails'
@@ -15,9 +15,9 @@ gem 'simple_form'
 gem 'slim-rails'
 gem 'font-awesome-rails'
 
-gem 'devise'
+gem 'devise', '>= 4.7.1'
 gem 'kramdown'
-gem 'kaminari'
+gem 'kaminari', '>= 1.2.1'
 
 group :development, :test do
   gem 'pry-byebug'
